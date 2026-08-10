@@ -1,19 +1,28 @@
 import './components/ui/Button'
 import './App.css'
-import Button from './components/ui/Button'
-import Input from './components/ui/Input'
-import Card from './components/ui/Card'
-import Badge from './components/ui/Badge'
-import Spinner from './components/ui/Spinner'
-import Modal from './components/ui/Modal'
-import Container from './components/layout/Container'
-import PageHeader from './components/layout/PageHeader'
-import NavBar from './components/layout/NavBar'
-import SideBar from './components/layout/Sidebar'
+import { login } from './services/auth.service'
+import Button from './components/ui/Button';
+
 
 function App() {
   
-  return <AppRoutes />
+  async function testarLogin() {
+    try {
+      const resposta = await login({
+        email: "admin@teste.com",
+        senha: "123456"
+      });
+
+      console.log(resposta);
+      
+    } catch (erro) {
+      console.error(erro)
+    }
+  }
+
+  return (
+    <Button onClick={testarLogin} >Testar Login</Button>
+  )
 
   // return (
   //   <>
