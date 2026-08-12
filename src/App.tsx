@@ -8,11 +8,9 @@ function App() {
   
   async function testarLogin() {
     try {
-      const resposta = await login({
-        email: "admin@teste.com",
-        senha: "123456"
-      });
-
+      const resposta = await login();
+      console.log("Login funcionou");
+      
       console.log(resposta);
       
     } catch (erro) {
