@@ -6,20 +6,41 @@ import Button from './components/ui/Button';
 
 function App() {
   
+  const { token, login, logout, loading } = useauth();
+
   async function testarLogin() {
     try {
-      const resposta = await login();
+      await login ({
+        email: "lucas@teste.com",
+        senha: "123456",
+      });
+
+      
       console.log("Login funcionou");
       
-      console.log(resposta);
       
     } catch (erro) {
       console.error(erro)
     }
   }
 
+  if (loading) {
+    return <p>Carregando...</p>;
+  }
   return (
-    <Button onClick={testarLogin} >Testar Login</Button>
+    
+    <div className="p-8" >
+      <p className="mb-4" >Token:</p>
+      <p className='mb-4 break-all' >{token ?? "Nenhum token"}</p>
+      <div className='flex gap-4' >
+        <Button onClick={testarLogin} > 
+          fazer login 
+        </Button>
+        <Button onClick={logout} >
+          Logout
+        </Button>
+      </div>
+    </div>
   )
 
   // return (
