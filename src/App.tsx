@@ -1,12 +1,12 @@
-import './components/ui/Button'
+
 import './App.css'
-import { login } from './services/auth.service'
 import Button from './components/ui/Button';
+import { useAuth } from './hooks/useAuth';
 
 
 function App() {
   
-  const { token, login, logout, loading } = useauth();
+  const { token, login, logout, loading } = useAuth();
 
   async function testarLogin() {
     try {

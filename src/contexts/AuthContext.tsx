@@ -1,51 +1,49 @@
-import { createContext, useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { login as loginService } from "../services/auth.service";
 import type { LoginRequest } from "../types/auth";
-
-interface AuthContextData {
-    token: string | null;
-    login: (dados: LoginRequest) => Promise<void>;
-    logout: () => void;
-    loading: boolean;
-}
+import { AuthContext } from "./auth-context";
 
 interface AuthProviderProps {
     children: ReactNode;
 }
 
-export const AuthContext = createContext<AuthContextData>(
-    {} as AuthContextData
-);
-
 export function AuthProvider ({ children }: AuthProviderProps) {
-    const [token, setToken] = useState<string | null>(null);
-    const [loading, setLoading] = useState(true);
+    const [token, setToken] = useState<string | null>(() => {
+        return localStorage.getItem("token");
+    })
+    
+    const [loading, setLoading] = useState(false);
+    
     
 
-    useEffect(() => {
-        const tokenSalvo = localStorage.getItem("token");
+    // useEffect(() => {
+    //     const tokenSalvo = localStorage.getItem("token");
 
-        if(tokenSalvo) {
-            setToken(tokenSalvo)
-        }
+    //     if(tokenSalvo) {
+    //         setToken(tokenSalvo)
+    //     }
 
-        setLoading(false);
+    //     setLoading(false);
 
-        //se o usuário fecha o navegador e abre novamente, o token continua disponível
-    }, [])
+    //     //se o usuário fecha o navegador e abre novamente, o token continua disponível
+    // }, [])
 
     async function login(dados: LoginRequest) {
         //recebe o dados que são login e senha
+        try {
+            const resposta = await loginService(dados);
+            //aqui se recebe a string do token criptografa e o tal do bearer
 
-        const resposta = await loginService(dados);
-        //aqui se recebe a string do token criptografa e o tal do bearer
+            localStorage.setItem(
+                "token",
+                resposta.access_token
+            );
 
-        localStorage.setItem(
-            "token",
-            resposta.access_token
-        );
-
-        setToken(resposta.access_token); //atualiza o react
+            setToken(resposta.access_token); //atualiza o react
+        } finally {
+            setLoading(false);
+        }
+        
     }
 
     function logout() {
