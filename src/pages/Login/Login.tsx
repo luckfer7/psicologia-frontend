@@ -1,12 +1,11 @@
 import { useForm } from "react-hook-form";
-import { email, z } from "zod";
+import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../../hooks/useAuth";
 
 const loginSchema = z.object({
     email: z
-        .string()
         .email("digite um email válido"),
 
     senha: z
@@ -17,10 +16,12 @@ const loginSchema = z.object({
 type LoginFormData = z.infer<typeof loginSchema>;
 
 export default function Login() {
-    const { login, loading } = useAuth();
+    const { token, login, loading } = useAuth();
 
     const { register, handleSubmit, formState: { errors },} = useForm<LoginFormData>({
         resolver: zodResolver(loginSchema),
+
+        //aqui está o reacthookform. ele controla o formulário
     });
 
     async function onSubmit(data: LoginFormData) {
@@ -30,7 +31,7 @@ export default function Login() {
                 senha: data.senha,
             });
 
-            console.log("Login realizado com sucesso!");
+            console.log(token, "Login realizado com sucesso!");
             
         } catch (error) {
             console.error("erro ao fazer login:", error);
@@ -61,7 +62,7 @@ export default function Login() {
                                 id="email"
                                 type="email"
                                 placeholder="seu@email.com"
-                                {... register("email")}
+                                {... register("email")} //esse register liga no outro register lá em cima
                                 className=" w-full border border-gray-300 rounded-lg px-4 py-2.5 outline-none focus:ring-blue-500 focus:border-blue-500 "
                             />
                             {errors.email && (
@@ -97,7 +98,7 @@ export default function Login() {
                         <button
                             type="submit"
                             disabled={loading}
-                            className="w-full bg-blue-600 text-white rounded-lg py-2.5 font-medium hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            className="w-full bg-blue-600 text-white rounded-lg py-2.5 font-medium hover:bg-blue-700 transition disabled:opacity-50 cursor-pointer disabled:cursor-not-allowed"
                         >
                             {loading ? "Entrando..." : "Entrar"}
                         </button>
