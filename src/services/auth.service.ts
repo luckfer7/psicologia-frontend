@@ -20,3 +20,8 @@ export async function login ( dados: LoginRequest ): Promise<LoginResponse> {
 
     return response.data;
 }
+
+//Promise<LoginResponse>
+
+// significa: 
+// "Essa função assíncrona vai retornar uma Promise cujo resultado é um LoginResponse."

@@ -6,4 +6,6 @@ export interface LoginRequest {
 export interface LoginResponse {
     access_token: string;
     token_type: string;
+
+    //é o que o fastapi devolve 
 }
