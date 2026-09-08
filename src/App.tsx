@@ -2,12 +2,13 @@
 import './App.css'
 // import Button from './components/ui/Button';
 // import { useAuth } from './hooks/useAuth';
-import Login from './pages/Login/Login';
+// import Login from './pages/Login/Login';
+import AppRoutes from './routes/AppRoutes';
 
 
 function App() {
 
-  return <Login />
+  return <AppRoutes />
   
   // const { token, login, logout, loading } = useAuth();
 

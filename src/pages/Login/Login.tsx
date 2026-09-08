@@ -3,6 +3,8 @@ import { z } from "zod";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+
 
 const loginSchema = z.object({
     email: z
@@ -24,16 +26,25 @@ export default function Login() {
         //aqui está o reacthookform. ele controla o formulário
     });
 
+    const navigate = useNavigate();
+
     async function onSubmit(data: LoginFormData) {
 
-        //o parametro precisa seguiro tipo loginformdata
+        //o parametro precisa seguir o tipo loginformdata
         try {
             await login({
                 email: data.email,
                 senha: data.senha,
             });
 
+            navigate("/dashboard");
+
             console.log(token, "Login realizado com sucesso!");
+
+            // const pacientes = await listarPacientes();
+
+            // console.log("Pacientes:", pacientes);
+            
             
         } catch (error) {
             console.error("erro ao fazer login:", error);
