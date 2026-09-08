@@ -1,13 +1,11 @@
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 
-interface Props {
-    children: React.ReactNode;
-}
+// interface Props {
+//     children: React.ReactNode;
+// }
 
-export default function PrivateRoute({
-    children,
-}: Props) {
+export default function PrivateRoute() {
         const { token, loading } = useAuth();
 
         if(loading) {
@@ -20,5 +18,5 @@ export default function PrivateRoute({
             return <Navigate to="/login" replace />
         }
 
-        return children;
+        return <Outlet />;
     }

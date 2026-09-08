@@ -1,24 +1,35 @@
-import { FaBell } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { FiLogOut } from "react-icons/fi";
 
-const NavBar = () => {
+export default function NavBar() {
+    const { logout } = useAuth();
+    const navigate = useNavigate();
+
+    function handleLogout() {
+
+        logout();
+
+        navigate("/login");
+    }
+
     return (
-        <header className="bg-white h-16 shadow px-8 flex items-center justify-between" >
-            <h2 className=" font-semibold text-xl " >Gestão de psicólogos
-
-            </h2>
-            <div className=" flex items-center gap-6 " >
-                <FaBell className="text-gray-500 text-xl cursor-pointer" />
-                <div className="flex items-center gap-3" >
-                    <div className=" w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center " >
-                        L
-                    </div>
-                </div>
-
-                <p className="font-semibold" >Lucas</p>
-                <small className="text-gray-500" >Psicólogo</small>
+        <header className="h-16 bg-white border-b flex items-center justify-between px-6" >
+            <div>
+                <h2 className="text-lg font-semibold text-gray-800" >
+                    Gestão para Psicólogos
+                </h2>
             </div>
+
+            <button 
+                onClick={handleLogout}
+                className=" flex items-center gap-2 rounded-lg px-4 py-2 text-gray-600 hover:bg-gray-100 transition "
+            >
+                <FiLogOut size={18} />
+                <span>
+                    Sair
+                </span>
+            </button>
         </header>
     )
 }
-
-export default NavBar;

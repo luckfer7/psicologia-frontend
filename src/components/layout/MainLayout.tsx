@@ -1,19 +1,23 @@
-import Container from "./Container";
+
 import NavBar from "./NavBar";
 import SideBar from "./Sidebar";
+import { Outlet } from "react-router-dom";
 
-const MainLayout = () => {
+// interface MainLayoutProps {
+//     children: ReactNode;
+// }
+
+
+export default function MainLayout() {
     return (
-        <div className="flex" >
+        <div className="min-h-screen bg-gray-100" >
             <SideBar />
-            <div className="flex flex-col flex-1" >
+            <div className="md:ml-64" >
                 <NavBar />
-                <Container>
-                    "outlet"
-                </Container>
+                <main className="p-6" >
+                    <Outlet />
+                </main>
             </div>
         </div>
     )
 }
-
-export default MainLayout;
