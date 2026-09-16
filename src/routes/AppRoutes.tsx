@@ -3,6 +3,7 @@ import PrivateRoute from './PrivateRoute';
 import Login from '../pages/Login/Login';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import MainLayout from '../components/layout/MainLayout';
+import Pacientes from '../pages/Pacientes/Pacientes';
 
 
 
@@ -19,6 +20,10 @@ export default function AppRoutes() {
                         <Route 
                             path="/dashboard"
                             element={<Dashboard />} 
+                        />
+                        <Route 
+                            path="/pacientes"
+                            element={<Pacientes />} 
                         />
                     </Route>
                 </Route>
