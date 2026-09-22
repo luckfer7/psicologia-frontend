@@ -5,6 +5,7 @@ import { FiPlus, FiSearch } from "react-icons/fi";
 
 export default function Pacientes() {
     const [pacientes, setPacientes] = useState<Paciente[]>([]);
+    const [busca, setBusca] = useState(""); //guarda o que o usuario digitou
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState("");
 
@@ -27,6 +28,16 @@ export default function Pacientes() {
 
         carregarPacientes();
     }, []);
+
+    const pacientesFiltrados = pacientes.filter((paciente) => {
+        const termo = busca.toLocaleLowerCase();
+
+        return(
+            paciente.nome.toLowerCase().includes(termo) || 
+            paciente.email?.toLowerCase().includes(termo) ||
+            paciente.telefone?.toLowerCase().includes(termo)
+        );
+    });
 
     return (
         <div>
@@ -51,7 +62,7 @@ export default function Pacientes() {
             <div className="mb-6 rounded-xl bg-white p-4 shadow-sm" >
                 <div className="relative max-w-md" >
                     <FiSearch size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                    <input type="text" placeholder="Buscar paciente..." className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500" />
+                    <input type="text" value={busca} onChange={(event) => setBusca(event.target.value)} placeholder="Buscar paciente..." className="w-full rounded-lg border border-gray-300 py-2.5 pl-10 pr-4 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500" />
                 </div>
             </div>
 
@@ -67,17 +78,20 @@ export default function Pacientes() {
 
             <div className="Overflow-hidden rounded-xl bg-white shadow-sm" >
                 {loading ? (
-                    <div>
+                    <div className="p-8 text-center text-gray-500" >
                         Carregando pacientes...
                     </div>
-                ): pacientes.length === 0 ? (
+                ): pacientesFiltrados.length === 0 ? (
                     <div className="p-8 text-center" >
                         <p className="text-gray-500" >
-                            Nenhum paciente cadastrado
+                            {busca ? "Nenhum paciente encontrado" : "Nenhum paciente cadastrado"}
                         </p>
-                        <button className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700" >
-                            Cadastrar primeiro paciente
-                        </button>
+                        {!busca && (
+                            <button className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700" >
+                                Cadastrar primeiro paciente
+                            </button>
+                        )}
+                        
                     </div>
                 ): (
                     <div className="overflow-x-auto" >
@@ -99,7 +113,7 @@ export default function Pacientes() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y" >
-                                {pacientes.map((paciente) => (
+                                {pacientesFiltrados.map((paciente) => (
                                     <tr key={paciente.id} className="hover:bg-gray-50" >
                                         <td className="px-6 py-4 font-medium text-gray-900" >
                                             {paciente.nome}
@@ -108,7 +122,7 @@ export default function Pacientes() {
                                             {paciente.email || "-"}
                                         </td>
                                         <td className="px-6 py-4 text-gray-600" >
-                                            {paciente.telefone}
+                                            {paciente.telefone || "-"}
                                         </td>
                                         <td className="px-6 py-4" >
                                             {paciente.status}
