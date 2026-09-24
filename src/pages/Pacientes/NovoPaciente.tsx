@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import z from "zod";
 import { criarPaciente } from "../../services/pacientes.service";
 import { FiArrowLeft, FiSave } from "react-icons/fi";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 const pacienteSchema = z.object({
     nome: z
@@ -47,7 +48,7 @@ export default function NovoPaciente() {
             await criarPaciente(data);
             navigate("/pacientes");
         } catch (error) {
-            console.error("Erro ao cadastrar paciente:", error);
+            console.error("Erro ao cadastrar paciente:", error );
             
             setErro("Não foi possível cadastrar o paciente");
         }

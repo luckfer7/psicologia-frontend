@@ -2,12 +2,15 @@ import { useEffect, useState } from "react";
 import type { Paciente } from "../../types/paciente";
 import { listarPacientes } from "../../services/pacientes.service";
 import { FiPlus, FiSearch } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 
 export default function Pacientes() {
     const [pacientes, setPacientes] = useState<Paciente[]>([]);
     const [busca, setBusca] = useState(""); //guarda o que o usuario digitou
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState("");
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         async function carregarPacientes() {
@@ -51,7 +54,7 @@ export default function Pacientes() {
                         Gerencie os pacientes da sua clínica
                     </p>
                 </div>
-                <button className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700" >
+                <button onClick={() => navigate("/pacientes/novo")} className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-blue-700" >
                     <FiPlus size={18} />
                     Novo paciente
                 </button>
@@ -87,7 +90,7 @@ export default function Pacientes() {
                             {busca ? "Nenhum paciente encontrado" : "Nenhum paciente cadastrado"}
                         </p>
                         {!busca && (
-                            <button className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700" >
+                            <button onClick={() => navigate("/pacientes/novo")} className="mt-4 rounded-lg bg-blue-600 px-4 py-2 text-sm font-medium text-white hover:bg-blue-700" >
                                 Cadastrar primeiro paciente
                             </button>
                         )}

@@ -1,3 +1,4 @@
+
 import type { Paciente } from "../types/paciente";
 import api from "./api";
 
@@ -6,7 +7,7 @@ export interface CriarPacienteRequest {
     telefone?: string;
     email?: string;
     data_nascimento?: string;
-    observações?: string;
+    observacoes?: string;
 }
 
 export async function listarPacientes(): Promise<Paciente[]> {
