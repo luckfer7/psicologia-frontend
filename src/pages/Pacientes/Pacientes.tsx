@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import type { Paciente } from "../../types/paciente";
 import { listarPacientes } from "../../services/pacientes.service";
 import { FiPlus, FiSearch } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function Pacientes() {
     const [pacientes, setPacientes] = useState<Paciente[]>([]);
@@ -118,8 +118,10 @@ export default function Pacientes() {
                             <tbody className="divide-y" >
                                 {pacientesFiltrados.map((paciente) => (
                                     <tr key={paciente.id} className="hover:bg-gray-50" >
-                                        <td className="px-6 py-4 font-medium text-gray-900" >
-                                            {paciente.nome}
+                                        <td className="px-6 py-4 " >
+                                            <Link to={`/pacientes/${paciente.id}`} className="font-medium text-blue-600 hover:text-blue-800 hover:underline" >
+                                                {paciente.nome}
+                                            </Link> 
                                         </td>
                                         <td className="px-6 py-4 text-gray-600" >
                                             {paciente.email || "-"}
