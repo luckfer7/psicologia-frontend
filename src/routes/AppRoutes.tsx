@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import MainLayout from '../components/layout/MainLayout';
 import Pacientes from '../pages/Pacientes/Pacientes';
 import NovoPaciente from '../pages/Pacientes/NovoPaciente';
+import PacienteDetalhes from '../pages/Pacientes/PacientesDetalhes';
 
 
 
@@ -29,6 +30,10 @@ export default function AppRoutes() {
                         <Route 
                             path="/pacientes/novo"
                             element={<NovoPaciente />}
+                        />
+                        <Route
+                            path='/pacientes/:id'
+                            element={<PacienteDetalhes />}
                         />
                     </Route>
                 </Route>
