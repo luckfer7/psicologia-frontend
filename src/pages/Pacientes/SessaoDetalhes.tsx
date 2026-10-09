@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import type { Sessao } from "../../types/paciente";
+import type { Sessao } from "../../types/sessao";
 import type { Anotacao } from "../../types/anotacao";
-import { criarAnotacao, listarSessoes } from "../../services/pacientes.service";
+import { criarAnotacao, listarAnotacoes, listarSessoes } from "../../services/pacientes.service";
 import { FiArrowLeft, FiCalendar, FiClock, FiFileText, FiSave } from "react-icons/fi";
 
 export default function SessaoDetalhes() {
@@ -194,18 +194,27 @@ export default function SessaoDetalhes() {
                 </div>
 
                 {/* formulário */}
-                <form action="">
-                    <label htmlFor="">
-
+                <form action="" onSubmit={handleAdicionarAnotacao} className="mt-6">
+                    <label htmlFor="anotacao" className="mb-2 block text-sm font-medium text-gray-700" >
+                        Nova anotação
                     </label>
-                    <textarea  />
+                    <textarea
+                        id="anotacao"
+                        value={texto}
+                        onChange={(event) =>
+                            setTexto(event.target.value)
+                        }
+                        rows={5}
+                        placeholder="Digite uma anotação sobre esta sessão..."
+                        className="w-full resize-none rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500"
+                    />
                     {erroAnotacao && (
                         <p className="mt-2 text-sm text-red-500" >
                             {erroAnotacao}
                         </p>
                     )}
                     <div className="mt-3 flex justify-end" >
-                        <button>
+                        <button type="submit" disabled={salvando} className="flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700 disabled: cursor-not-allowed disabled:opacity-50" >
                             <FiSave size={18} />
                             {salvando ? "Salvando..." : "Salvado anotação"}
                         </button>

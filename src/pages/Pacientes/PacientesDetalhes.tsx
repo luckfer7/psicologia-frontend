@@ -339,12 +339,15 @@ export default function PacienteDetalhes() {
                                                 </td>
 
                                                 <td className="px-4 py-4">
-                                                    <button
+                                                    <Link to={`/pacientes/${id}/sessoes/${sessao.id}`} className="text-sm font-medium text-blue-600 hover:underline" >
+                                                        Ver sessão
+                                                    </Link>
+                                                    {/* <button
                                                         type="button"
                                                         className="text-sm font-medium text-blue-600 hover:underline"
                                                     >
                                                         Ver sessão
-                                                    </button>
+                                                    </button> */}
                                                 </td>
                                             </tr>
                                         );

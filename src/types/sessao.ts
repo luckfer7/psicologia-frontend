@@ -1,6 +1,6 @@
 export interface Sessao {
     id: number;
-    data_nascimento: string;
+    data_horario: string;
     status: string;
     paciente_id: number;
 }

@@ -1,9 +1,9 @@
-export interface Sessao {
-    id: number;
-    paciente_id: number;
-    data_horario: string;
-    status: string;
-}
+// export interface Sessao {
+//     id: number;
+//     paciente_id: number;
+//     data_horario: string;
+//     status: string;
+// }
 
 export interface Paciente {
     id: number;
@@ -13,7 +13,7 @@ export interface Paciente {
     email: string | null;
     observacoes: string | null;
     status: string;
-    sessoes: Sessao[];
+    sessoes: import("./sessao").Sessao[];
 }
 
 //o typescript vai saber o formato dos dados que vem da api 

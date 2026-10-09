@@ -35,6 +35,14 @@ export async function listarSessoes(pacienteId: number): Promise<Sessao[]> {
     return response.data
 }
 
+export async function listarAnotacoes(sessaoId: number): Promise<Anotacao[]> {
+    const response = await api.get<Anotacao[]>(
+        `/sessoes/${sessaoId}/anotacoes`
+    );
+
+    return response.data;
+}
+
 export async function criarAnotacao(dados: CriarAnotacaoRequest): Promise<Anotacao> {
     const response = await api.post<Anotacao>(
         "/anotacoes",
