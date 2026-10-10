@@ -271,7 +271,7 @@ export default function PacienteDetalhes() {
                     </div>
 
                     <Link
-                        to={`pacientes/${id}/sessoes/nova`}
+                        to={`/pacientes/${id}/sessoes/nova`}
                         className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700 cursor-pointer "
                     >
                         Nova sessão

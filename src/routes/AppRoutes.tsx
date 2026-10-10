@@ -36,14 +36,15 @@ export default function AppRoutes() {
                             path='/pacientes/:id'
                             element={<PacienteDetalhes />}
                         />
-                        <Route 
-                            path='/pacientes/:id/sessoes//:sessaoId'
-                            element={<SessaoDetalhes />}
-                        />
                         <Route
                             path='/pacientes/:id/sessoes/nova'
                             element={<NovaSessao />}
                         />
+                        <Route 
+                            path='/pacientes/:id/sessoes//:sessaoId'
+                            element={<SessaoDetalhes />}
+                        />
+                        
                     </Route>
                 </Route>
                 <Route path='*' element={<Navigate to="/login" replace />} />
