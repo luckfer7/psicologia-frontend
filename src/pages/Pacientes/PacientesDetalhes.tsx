@@ -270,12 +270,12 @@ export default function PacienteDetalhes() {
                         </div>
                     </div>
 
-                    <button
-                        type="button"
-                        className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700"
+                    <Link
+                        to={`pacientes/${id}/sessoes/nova`}
+                        className="rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-medium text-white hover:bg-blue-700 cursor-pointer "
                     >
                         Nova sessão
-                    </button>
+                    </Link>
                 </div>
 
                 {paciente.sessoes &&
@@ -339,7 +339,7 @@ export default function PacienteDetalhes() {
                                                 </td>
 
                                                 <td className="px-4 py-4">
-                                                    <Link to={`/pacientes/${id}/sessoes/${sessao.id}`} className="text-sm font-medium text-blue-600 hover:underline" >
+                                                    <Link to={`/pacientes/${id}/sessoes/${sessao.id}`} className="text-sm font-medium text-blue-600 hover:underline cursor-pointer" >
                                                         Ver sessão
                                                     </Link>
                                                     {/* <button

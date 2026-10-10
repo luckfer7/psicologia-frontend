@@ -1,7 +1,7 @@
 
 import type { Anotacao, CriarAnotacaoRequest } from "../types/anotacao";
 import type { Paciente } from "../types/paciente";
-import type { Sessao } from "../types/sessao";
+import type { CriarSessaoRequest, Sessao } from "../types/sessao";
 import api from "./api";
 
 export interface CriarPacienteRequest {
@@ -23,6 +23,15 @@ export async function criarPaciente(dados: CriarPacienteRequest): Promise<Pacien
         "/adicionar_pacientes",
         dados
     );
+
+    return response.data;
+}
+
+export async function criarSessao(dados: CriarSessaoRequest): Promise<Sessao> {
+    const response = await api.post<Sessao>(
+        "/criar_sessao",
+        dados
+    )
 
     return response.data;
 }

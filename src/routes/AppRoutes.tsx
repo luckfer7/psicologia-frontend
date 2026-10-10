@@ -7,6 +7,7 @@ import Pacientes from '../pages/Pacientes/Pacientes';
 import NovoPaciente from '../pages/Pacientes/NovoPaciente';
 import PacienteDetalhes from '../pages/Pacientes/PacientesDetalhes';
 import SessaoDetalhes from "../pages/Pacientes/SessaoDetalhes";
+import NovaSessao from "../pages/Pacientes/NovaSessao";
 
 
 export default function AppRoutes() {
@@ -38,6 +39,10 @@ export default function AppRoutes() {
                         <Route 
                             path='/pacientes/:id/sessoes//:sessaoId'
                             element={<SessaoDetalhes />}
+                        />
+                        <Route
+                            path='/pacientes/:id/sessoes/nova'
+                            element={<NovaSessao />}
                         />
                     </Route>
                 </Route>
