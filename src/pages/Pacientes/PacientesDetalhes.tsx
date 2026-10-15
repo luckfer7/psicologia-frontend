@@ -7,6 +7,7 @@ import {
     FiPhone,
     FiMail,
     FiUser,
+    FiTrash,
 } from "react-icons/fi";
 
 import {
@@ -114,13 +115,20 @@ export default function PacienteDetalhes() {
                         </p>
                     </div>
 
-                    <button
-                        type="button"
-                        className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50"
-                    >
-                        <FiEdit size={18} />
-                        Editar
-                    </button>
+                    <div className="flex items-center gap-3" >
+                        <button
+                            type="button"
+                            className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
+                        >
+                            <FiEdit size={18} />
+                            Editar paciente
+                        </button>
+                        <button type="button" className="flex items-center justify-center gap-2 rounded-lg border border-red-800 bg-red-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer" >
+                            <FiTrash color="red" size={18} />
+                            Excluir paciente
+                        </button>
+                    </div>
+                    
                 </div>
             </div>
 

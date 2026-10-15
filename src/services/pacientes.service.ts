@@ -6,10 +6,10 @@ import api from "./api";
 
 export interface CriarPacienteRequest {
     nome: string;
-    telefone?: string;
-    email?: string;
-    data_nascimento?: string;
-    observacoes?: string;
+    telefone: string | null;
+    email: string | null;
+    data_nascimento: string | null;
+    observacoes: string | null;
 }
 
 export async function listarPacientes(): Promise<Paciente[]> {
@@ -59,4 +59,11 @@ export async function criarAnotacao(dados: CriarAnotacaoRequest): Promise<Anotac
     );
 
     return response.data;
+}
+
+export async function atualizarPaciente(pacienteId: number, dados: CriarPacienteRequest): Promise<void> {
+    await api.put(
+        `/pacientes/${pacienteId}`,
+        dados
+    );
 }
