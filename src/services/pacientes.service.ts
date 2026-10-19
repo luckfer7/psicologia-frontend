@@ -27,6 +27,11 @@ export async function criarPaciente(dados: CriarPacienteRequest): Promise<Pacien
     return response.data;
 }
 
+export async function deletarPaciente(pacienteId: number): Promise<void> {
+    await api.delete(`/pacientes/${pacienteId}`)
+        
+}
+
 export async function criarSessao(dados: CriarSessaoRequest): Promise<Sessao> {
     const response = await api.post<Sessao>(
         "/criar_sessao",
@@ -67,3 +72,4 @@ export async function atualizarPaciente(pacienteId: number, dados: CriarPaciente
         dados
     );
 }
+

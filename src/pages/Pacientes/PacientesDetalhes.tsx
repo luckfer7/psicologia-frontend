@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
     FiArrowLeft,
     FiEdit,
@@ -16,6 +16,7 @@ import {
 
 import type { Paciente } from "../../types/paciente";
 import EditarPacienteModal from "./EditarPacienteModal";
+import DeletarPacienteModal from "./ExcluirPacienteModal";
 
 export default function PacienteDetalhes() {
     const { id } = useParams();
@@ -24,6 +25,8 @@ export default function PacienteDetalhes() {
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState("");
     const [modalEditarAberto, setModalEditarAberto] = useState(false);
+    const [modalExcluirAberto, setModalExcluirAberto] = useState(false);
+    const navigate = useNavigate();
 
         async function handlePacienteAtualizado() {
             if (!id) return;
@@ -148,7 +151,9 @@ export default function PacienteDetalhes() {
                             <FiEdit size={18} />
                             Editar paciente
                         </button>
-                        <button type="button" className="flex items-center justify-center gap-2 rounded-lg border border-red-800 bg-red-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer" >
+                        <button
+                            onClick={() => setModalExcluirAberto(true)} 
+                            type="button" className="flex items-center justify-center gap-2 rounded-lg border border-red-800 bg-red-300 px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer" >
                             <FiTrash color="red" size={18} />
                             Excluir paciente
                         </button>
@@ -158,6 +163,15 @@ export default function PacienteDetalhes() {
                             paciente={paciente} 
                             onClose={() => setModalEditarAberto(false)} 
                             onSaved={handlePacienteAtualizado} 
+                        />
+                    )}
+                    {modalExcluirAberto && paciente && (
+                        <DeletarPacienteModal paciente={paciente} onClose={() => setModalExcluirAberto(false)} onDeleted={async () => {
+                            setModalExcluirAberto(false);
+                            navigate("/pacientes"); 
+                                
+                        }} 
+
                         />
                     )}
                 </div>
