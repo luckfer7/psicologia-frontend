@@ -15,6 +15,7 @@ import {
 } from "../../services/pacientes.service";
 
 import type { Paciente } from "../../types/paciente";
+import EditarPacienteModal from "./EditarPacienteModal";
 
 export default function PacienteDetalhes() {
     const { id } = useParams();
@@ -22,8 +23,31 @@ export default function PacienteDetalhes() {
     const [paciente, setPaciente] = useState<Paciente | null>(null);
     const [loading, setLoading] = useState(true);
     const [erro, setErro] = useState("");
+    const [modalEditarAberto, setModalEditarAberto] = useState(false);
+
+        async function handlePacienteAtualizado() {
+            if (!id) return;
+
+            try {
+                const pacientesAtualizados = await listarPacientes();
+                const pacienteAtualizado = pacientesAtualizados.find((item) => item.id === Number(id));
+
+                if (pacienteAtualizado) {
+                    setPaciente(pacienteAtualizado);
+                    setModalEditarAberto(false);
+                } else {
+                    setErro("Paciente atualizado, mas não foi possível recarregar os dados");
+                }
+            } catch (error) {
+                console.error("Erro ao recarregar paciente:", error);
+                setErro("Paciente atualizado, mas houve um erro ao recarregar os dados.");
+            }
+        }
 
     useEffect(() => {
+
+        
+
         async function carregarPaciente() {
             try {
                 setLoading(true);
@@ -117,6 +141,7 @@ export default function PacienteDetalhes() {
 
                     <div className="flex items-center gap-3" >
                         <button
+                            onClick={() =>setModalEditarAberto(true)}
                             type="button"
                             className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer"
                         >
@@ -128,7 +153,13 @@ export default function PacienteDetalhes() {
                             Excluir paciente
                         </button>
                     </div>
-                    
+                    {modalEditarAberto && paciente && (
+                        <EditarPacienteModal 
+                            paciente={paciente} 
+                            onClose={() => setModalEditarAberto(false)} 
+                            onSaved={handlePacienteAtualizado} 
+                        />
+                    )}
                 </div>
             </div>
 
