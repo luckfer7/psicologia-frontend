@@ -41,7 +41,7 @@ export default function AppRoutes() {
                             element={<NovaSessao />}
                         />
                         <Route 
-                            path='/pacientes/:id/sessoes//:sessaoId'
+                            path='/pacientes/:id/sessoes/:sessaoId'
                             element={<SessaoDetalhes />}
                         />
                         
