@@ -1,3 +1,38 @@
 @import "tailwindcss";
+.agenda-calendar .fc {
+    font-family: inherit;
+    font-size: 13px;
+}
 
+.agenda-calendar .fc-toolbar-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #1f2937;
+}
+
+.agenda-calendar .fc-button-primary {
+    background-color: #6366f1;
+    border-color: #6366f1;
+    text-transform: capitalize;
+}
+
+.agenda-calendar .fc-button-primary:disabled {
+    background-color: #a5b4fc;
+    border-color: #a5b4fc;
+}
+
+.agenda-calendar .fc-event {
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 2px 4px;
+    font-size: 12px;
+}
+
+.agenda-calendar .fc-day-today {
+    background-color: #eef2ff !important;
+}
+
+.agenda-calendar .fc-timegrid-slot {
+    height: 3rem;
+}
 
