@@ -9,6 +9,10 @@ import dayGridPlugin from "@fullcalendar/react/daygrid";
 import timeGridPlugin from "@fullcalendar/react/timegrid";
 import interactionPlugin from "@fullcalendar/react/interaction";
 import ptBrLocale from "@fullcalendar/react/locales/pt-br";
+import themePlugin from "@fullcalendar/react/themes/monarch";
+import "@fullcalendar/react/skeleton.css";
+import "@fullcalendar/react/themes/monarch/theme.css";
+import "@fullcalendar/react/themes/monarch/palettes/purple.css";
 
 interface SessaoSelecionada {
     paciente: Paciente;
@@ -141,6 +145,7 @@ export default function Agenda() {
                 <div className="agenda-calendar" >
                     <FullCalendar  
                         plugins={[
+                            themePlugin,
                             dayGridPlugin,
                             timeGridPlugin,
                             interactionPlugin,
