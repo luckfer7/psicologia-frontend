@@ -3,14 +3,12 @@ import type { Paciente } from "../../types/paciente";
 import type { Sessao } from "../../types/sessao";
 import { useEffect, useMemo, useState } from "react";
 import { listarPacientes } from "../../services/pacientes.service";
-import { string } from "zod";
 import { FiCalendar, FiClock, FiExternalLink, FiUser, FiX } from "react-icons/fi";
-import interactionPlugin from "@fullcalendar/interaction";
-import type { EventClickArg } from "@fullcalendar/core/";
-import FullCalendar from "@fullcalendar/react";
-import dayGridPlugin from "@fullcalendar/daygrid";
-import timeGridPlugin from "@fullcalendar/timegrid";
-import ptBrLocale from "@fullcalendar/core/locales/pt-br";
+import FullCalendar, { type EventClickInfo, } from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/react/daygrid";
+import timeGridPlugin from "@fullcalendar/react/timegrid";
+import interactionPlugin from "@fullcalendar/react/interaction";
+import ptBrLocale from "@fullcalendar/react/locales/pt-br";
 
 interface SessaoSelecionada {
     paciente: Paciente;
@@ -81,11 +79,11 @@ export default function Agenda() {
                 const fim = new Date(inicio.getTime() + 50 * 60 * 1000);
 
                 return {
-                    id: string(sessao.id),
+                    id: String(sessao.id),
                     title: paciente.nome,
                     start: inicio,
                     end: fim,
-                    backgroundColor: CoresStatus[sessao.status] ?? "#64748b",
+                    backgroundColor: coresStatus[sessao.status] ?? "#64748b",
                     borderColor: coresStatus[sessao.status] ?? "#64748b",
                     extendedProps: {
                         paciente,
@@ -97,7 +95,7 @@ export default function Agenda() {
 
     }, [pacientes]);
 
-    function handleCliqueSessao(info: EventClickArg) {
+    function handleCliqueSessao(info: EventClickInfo) {
         const paciente = info.event.extendedProps.paciente as Paciente;
         const sessao = info.event.extendedProps.sessao as Sessao;
 
@@ -147,21 +145,21 @@ export default function Agenda() {
                             timeGridPlugin,
                             interactionPlugin,
                         ]}
-                        initialview="timeGridWeek"
+                        initialView="timeGridWeek"
                         locale={ptBrLocale}
                         headerToolbar={{
-                            left: "prev, next today",
+                            left: "prev,next today",
                             center: "title",
                             right: "timeGridDay,timeGridWeek,dayGridMonth",
                         }}
-                        buttonText={{
-                            today: "hoje",
-                            day: "Dia",
-                            week: "Semana",
-                            month: "Mês",
+                        buttons={{
+                            today: { text: "Hoje", },
+                            timeGridDay: { text: "Dia", },
+                            timeGridWeek: { text: "Semana", },
+                            dayGridMonth: { text: "Mês", } ,
                         }}
                         events={eventos}
-                        eventClick={handleClickSessao}
+                        eventClick={handleCliqueSessao}
                         nowIndicator={true}
                         allDaySlot={false}
                         slotMinTime="07:00:00"
@@ -177,7 +175,7 @@ export default function Agenda() {
                             minute: "2-digit",
                             hour12: false,
                         }}
-                        noEventContent="Nenhuma sessão neste período."
+                        noEventsContent="Nenhuma sessão neste período."
                     />
                 </div>
             </div>
