@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Pagamento, SessaoPendente, type ResumoFinanceiro } from "../../types/pagamento";
+import React, { useCallback, useEffect, useState } from "react";
+import type { Pagamento, SessaoPendente, ResumoFinanceiro } from "../../types/pagamento";
 import { listarHistorico, listarPendencias, obterResumoFinanceiro, registrarPagamento } from "../../services/financeiro.service";
 import { FiCheckCircle, FiClock, FiDollarSign } from "react-icons/fi";
 
@@ -21,29 +21,34 @@ export default function Financeiro() {
     const [forma, setForma] = useState("pix");
     const [observacao, setObservacao] = useState("");
 
-    async function carregarDados() {
-        try {
-            const [r, p, h] = await Promise.all([
-                obterResumoFinanceiro(),
-                listarPendencias(),
-                listarHistorico()
-            ]);
+    
+        const carregarDados = useCallback(async () => {
+            try {
+                const [r, p, h] = await Promise.all([
+                    obterResumoFinanceiro(),
+                    listarPendencias(),
+                    listarHistorico()
+                ]);
 
-            setResumo(r);
-            setPendencias(p)
-            setHistorico(h);
-        } catch(error) {
-            console.error("Erro ao carregar financeiro:", error);
-        } finally {
-            setLoading(false)
-        }
-    }
+                setResumo(r);
+                setPendencias(p)
+                setHistorico(h);
+            } catch(error) {
+                console.error("Erro ao carregar financeiro:", error);
+            } finally {
+                setLoading(false)
+            }
+        },[]);
 
-    useEffect(() => {
-        carregarDados();
-    }, []);
+        useEffect(() => {
+            async function iniciarCarregamento() {
+                await carregarDados();
+            }
 
-    async function handlePagamento(e: React.FocusEvent) {
+            iniciarCarregamento();
+        }, [carregarDados]);
+
+    async function handlePagamento(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
 
         if (!sessaoSelecionada) return;

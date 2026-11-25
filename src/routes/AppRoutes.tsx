@@ -9,6 +9,7 @@ import PacienteDetalhes from '../pages/Pacientes/PacientesDetalhes';
 import SessaoDetalhes from "../pages/Pacientes/SessaoDetalhes";
 import NovaSessao from "../pages/Pacientes/NovaSessao";
 import Agenda from '../pages/Agenda/Agenda';
+import Financeiro from '../pages/Financeiro/Financeiro';
 
 
 export default function AppRoutes() {
@@ -48,6 +49,11 @@ export default function AppRoutes() {
                         <Route
                             path='/agenda'
                             element={<Agenda />}
+                        />
+
+                        <Route 
+                            path='/financeiro'
+                            element={<Financeiro />}
                         />
                         
                     </Route>
